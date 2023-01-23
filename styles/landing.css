@@ -81,6 +81,7 @@
 .about-wrapper .flex-wrapper {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 70vw;
     margin: 0 auto;
 }
@@ -94,8 +95,6 @@
     margin-bottom: -10px!important;
 }
 .about-wrapper .skills-wrapper {
-    display: flex;
-    flex-wrap: wrap;
     width: 37vw;
     float: right;
     margin-top: 20px;
@@ -202,6 +201,7 @@
 .projects-wrapper .project .text-wrapper a .link-button:hover::after {
     height: 1.6rem;
 }
+
 .contact-wrapper {
     margin: 0;
     padding-top: 50px;

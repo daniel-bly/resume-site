@@ -1,5 +1,6 @@
-import { useCallback, useRef } from 'react'
+import { useCallback, useState } from 'react'
 import type { NextPage } from 'next'
+import Image from 'next/image'
 import Particles from 'react-tsparticles'
 import type { Container, Engine, IOptions } from 'tsparticles-engine'
 import { loadFull } from 'tsparticles'
@@ -9,8 +10,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import axios from 'axios'
 
+import CustomAccordion from '../components/CustomAccordion'
+
 import styles from '../styles/Home.module.css'
-import Image from 'next/image'
 
 const options: IOptions = {
   background: {
@@ -150,6 +152,12 @@ const Home: NextPage = () => {
     }
   }
 
+  const [exapanded, setExpanded] = useState<string | false>('panel1')
+
+  const handleChange = (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
+    setExpanded(newExpanded ? panel : false);
+  }
+
 
   return (
     <div style={{backgroundColor: 'black'}}>
@@ -176,31 +184,57 @@ const Home: NextPage = () => {
       <div className="flex-wrapper">
         <div className="text-wrapper">
           <Image className="image" src="/Profile.svg" width={300} height={300} />
-          <p>Since learning programming as a child as a way to create my own video games, coding has become part of my daily life.</p>
+          <p>Since learning programming during my childhood as a way to create my own video games, coding has become part of my daily life.</p>
           <p>As a freelance Full-Stack SaaS developer I have further harnessed my love of learning to develop skills in a wide range of technologies and frameworks, allowing me to deliver the best solution to my clients.</p>
           <p>When I am not at my computer I enjoy reading, SIM racing, tabletop gaming and playing guitar or piano.</p>
         </div>
         <div className="skills-wrapper">
-          <Skill logo="HTML5.svg" alt="HTML5 logo" text="HTML5" />
-          <Skill logo="CSS3.svg" alt="CSS3 logo" text="CSS3" />
-          <Skill logo="PHP.svg" alt="PHP logo" text="PHP" />
-          <Skill logo="Javascript.svg" alt="Javascript logo" text="Javascript" />
-          <Skill logo="Typescript.svg" alt="Typescript logo" text="Typescript" />
-          <Skill logo="CSharp.svg" alt="C# logo" text="C#" />
-          <Skill logo="Java.svg" alt="Java logo" text="Java" />
-          <Skill logo="React.svg" alt="React logo" text="ReactJS" />
-          <Skill logo="NextJS.svg" alt="NextJS logo" text="NextJS" invert={true} />
-          <Skill logo="Laravel.svg" alt="Laravel logo" text="Laravel" />
-          <Skill logo="NodeJS.svg" alt="NodeJS logo" text="NodeJS" />
-          <Skill logo="ExpressJS.svg" alt="ExpressJS logo" text="ExpressJS" invert={true} />
-          <Skill logo="NestJS.svg" alt="NestJS logo" text="NestJS" />
-          <Skill logo="RubyOnRails.svg" alt="Ruby on Rails logo" text="Ruby on Rails" />
-          <Skill logo="MongoDB.svg" alt="MongoDB logo" text="MongoDB" />
-          <Skill logo="PostgreSQL.svg" alt="PostgreSQL logo" text="PostgreSQL" />
-          <Skill logo="Neo4j.svg" alt="Neo4j logo" text="Neo4j" />
-          <Skill logo="MySQL.svg" alt="MySQL logo" text="MySQL" />
-          <Skill logo="Git.svg" alt="Git logo" text="Git" />
-          <Skill logo="Docker.svg" alt="Docker logo" text="Docker" />
+          <CustomAccordion 
+            title="Languages" 
+            expanded={exapanded == 'panel1'} 
+            handleChange={() => handleChange('panel1')}
+            id="panel1">
+            <Skill logo="HTML5.svg" alt="HTML5 logo" text="HTML5" />
+            <Skill logo="CSS3.svg" alt="CSS3 logo" text="CSS3" />
+            <Skill logo="PHP.svg" alt="PHP logo" text="PHP" />
+            <Skill logo="Javascript.svg" alt="Javascript logo" text="Javascript" />
+            <Skill logo="Typescript.svg" alt="Typescript logo" text="Typescript" />
+            <Skill logo="CSharp.svg" alt="C# logo" text="C#" />
+            <Skill logo="Java.svg" alt="Java logo" text="Java" />
+          </CustomAccordion>
+          <CustomAccordion 
+            title="Frameworks" 
+            expanded={exapanded === 'panel2'} 
+            handleChange={() => handleChange('panel2')}
+            id="panel2">
+            <Skill logo="React.svg" alt="React logo" text="ReactJS" />
+            <Skill logo="NextJS.svg" alt="NextJS logo" text="NextJS" invert />
+            <Skill logo="Laravel.svg" alt="Laravel logo" text="Laravel" />
+            <Skill logo="NodeJS.svg" alt="NodeJS logo" text="NodeJS" />
+            <Skill logo="ExpressJS.svg" alt="ExpressJS logo" text="ExpressJS" invert />
+            <Skill logo="NestJS.svg" alt="NestJS logo" text="NestJS" />
+            <Skill logo="RubyOnRails.svg" alt="Ruby on Rails logo" text="Ruby on Rails" />
+          </CustomAccordion>
+          <CustomAccordion 
+            title="Databases" 
+            expanded={exapanded === 'panel3'} 
+            handleChange={() => handleChange('panel3')}
+            id="panel3">
+            <Skill logo="MongoDB.svg" alt="MongoDB logo" text="MongoDB" />
+            <Skill logo="PostgreSQL.svg" alt="PostgreSQL logo" text="PostgreSQL" />
+            <Skill logo="Neo4j.svg" alt="Neo4j logo" text="Neo4j" />
+            <Skill logo="MySQL.svg" alt="MySQL logo" text="MySQL" />
+          </CustomAccordion>
+          <CustomAccordion 
+            title="DevOps" 
+            expanded={exapanded === 'panel4'} 
+            handleChange={() => handleChange('panel4')}
+            id="panel4">
+            <Skill logo="Git.svg" alt="Git logo" text="Git" />
+            <Skill logo="Docker.svg" alt="Docker logo" text="Docker" />
+            <Skill logo="ci-cd.svg" alt="CI/CD logo" text="CI/CD" invert />
+            <Skill logo="jest.svg" alt="Jest logo" text="Jest JS" />
+          </CustomAccordion>
         </div>
       </div>
     </div>
@@ -208,7 +242,7 @@ const Home: NextPage = () => {
       <h1 className="heading">Projects</h1>
       <div className="project">
         <div className="image-wrapper">
-          <Image src="/commuter-v2-site-capture.jpg" alt="Commuter v2 Screenshot" width={740} height={360} layout="responsive" />
+          <Image src="/commuter-v2-site-capture.JPG" alt="Commuter v2 Screenshot" width={740} height={360} layout="responsive" />
         </div>
         <div className="text-wrapper">
           <h2>Commuter v2</h2>
@@ -225,12 +259,12 @@ const Home: NextPage = () => {
           <a onClick={() => addGitHubColaborator('flicka')}><div className="link-button">VIEW CODE</div></a>
         </div>
         <div className="image-wrapper">
-          <Image src="/flicka-site-capture.jpg" alt="Flicka Screenshot" width={740} height={360} layout="responsive" />
+          <Image src="/flicka-site-capture.JPG" alt="Flicka Screenshot" width={740} height={360} layout="responsive" />
         </div>
       </div>
       <div className="project">
         <div className="image-wrapper">
-          <Image src="/dataset-site-capture.jpg" alt="Dataset Screenshot" width={740} height={360} layout="responsive" />
+          <Image src="/dataset-site-capture.JPG" alt="Dataset Screenshot" width={740} height={360} layout="responsive" />
         </div>
         <div className="text-wrapper">
           <h2>Dataset (Beta)</h2>
