@@ -9,9 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.9",
+    "axios": "^1.2.3",
     "next": "12.3.1",
+    "next-compose-plugins": "^2.2.1",
+    "next-transpile-modules": "^9.1.0",
+    "normalize.css": "^8.0.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-hexgrid": "^2.0.1",
+    "react-hook-form": "^7.38.0",
+    "react-tsparticles": "^2.3.3",
+    "tsparticles": "^2.3.4",
+    "tsparticles-engine": "^2.3.3",
+    "typewriter-effect": "^2.19.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "18.11.0",

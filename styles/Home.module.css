@@ -12,6 +12,30 @@
   align-items: center;
 }
 
+.background_particles {
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: -20;
+}
+
+.typewriter_wrapper {
+  font-family: sans-serif;
+  font-weight:500;
+  font-size:40px;
+  text-align: left;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  color: #FFF;
+  white-space: wrap;
+  position: relative;
+}
+.typewriter_wrapper .highlight {
+  color: #000;
+}
+
 .footer {
   display: flex;
   flex: 1;
