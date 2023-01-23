@@ -220,6 +220,12 @@
         margin-left: 0;
     }
 }
+@media (max-width: 1044px) {
+    .projects-wrapper .project .text-wrapper { width: 100%; }
+}
+@media (max-width: 1044px) {
+    .projects-wrapper .project .image-wrapper { width: 90%; }
+}
 
 .projects-wrapper .project .text-wrapper a .link-button:hover::after {
     height: 1.6rem;
