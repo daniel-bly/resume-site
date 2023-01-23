@@ -140,7 +140,9 @@ const Home: NextPage = () => {
 
   const addGitHubColaborator = async (repo: string) => {
     const password = prompt('This repository includes proprietary code. Please enter the password:')
+    if(!password) return
     const username = prompt('Enter your GitHub username:')
+    if(!username) return
     const result = await axios.put(process.env.NEXT_PUBLIC_BASE_PATH + '/api/add-github-colaborator', { repo: repo, username: username, pass: password })
 
     if(result.status === 201) {
