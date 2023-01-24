@@ -116,7 +116,7 @@ const LoadingPopup = ({ showPopup }: { showPopup: boolean }) => {
   return (
       <div  className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
           <div className="popup loading">
-              <ClipLoader loading={true} color="#35adfc" size={100} />
+              <ClipLoader loading={true} color="#9900ff" size={100} />
               <p>Sending...</p>
           </div>
       </div>
@@ -131,8 +131,8 @@ const SuccessPopup = ({ showPopup }: { showPopup: boolean }) => {
     return (
         <div  className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
             <div className="popup success">
-                <img src="/res/check.svg" />
-                <h2>Enquiry Sent Successfully</h2>
+                <Image src="/res/check.svg" alt="Check" width={90} height={90} />
+                <h2>Message Sent Successfully</h2>
                 <p>Thank you for getting in touch. I will get back to you shortly!</p>
                 <input type="submit" value="Ok" className="btn btn-primary btn-block"  onClick={close} />
             </div>
@@ -148,10 +148,26 @@ const FailurePopup = ({ showPopup, setFailPopup }: { showPopup: boolean, setFail
     return (
         <div className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
             <div className="popup fail">
-                <img src="/res/cross.svg" />
-                <h2>Enquiry Sent Unsuccessfully</h2>
-                <p>Please try again later. If the issue persists, please let us know via contact@phoenixmedia.co.nz</p>
-                <input type="submit" value="Ok" className="btn btn-primary btn-block"  onClick={close} />
+                <Image src="/res/cross.svg" alt="Cross" width={90} height={90} />
+                <h2>Message Sent Unsuccessfully</h2>
+                <p>Please try again later. If the issue persists, please let me know via danielbly999@gmail.com.</p>
+                <input type="submit" value="Ok" className="btn btn-primary btn-block" onClick={close} />
+            </div>
+        </div>
+    )
+}
+
+const InfoPopup = ({ showPopup, setInfoPopup, title, children }: { showPopup: boolean, setInfoPopup: (params: any) => any, title: string, children: any }) => {
+    const close = () => {
+        setInfoPopup(false)
+    }
+
+    return (
+        <div className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
+            <div className="popup fail">
+                <h2>{title}</h2>
+                <p>{children}</p>
+                <input type="submit" value="Ok" className="btn btn-primary btn-block" onClick={close} />
             </div>
         </div>
     )
@@ -185,6 +201,9 @@ const Home: NextPage = () => {
   const [loadingPopup, setLoadingPopup] = useState(false);
   const [successPopup, setSuccessPopup] = useState(false);
   const [failPopup, setFailPopup] = useState(false);
+
+  const [infoPopup1, setInfoPopup1] = useState(false);
+  const [infoPopup2, setInfoPopup2] = useState(false);
 
   const onSubmit = async (data: object) => {
     console.log(data)
@@ -240,11 +259,15 @@ const Home: NextPage = () => {
           }} />
           </div>
       </div>  
+      <a href="#about">
+        Learn More
+        <Image src="/res/down.svg" alt="Cross" width={15} height={15} />
+      </a>
     </div>
     {/* <div className={styles.background_particles} >
       <Particles id="tsparticles2" init={particlesInit} loaded={particlesLoaded} options={options} canvasClassName="particlesCanvas" />
     </div> */}
-    <div className="about-wrapper">
+    <div className="about-wrapper" id="about">
       <h1 className="heading">About</h1>
       <div className="flex-wrapper">
         <div className="text-wrapper">
@@ -305,14 +328,17 @@ const Home: NextPage = () => {
     </div>
     <div className="projects-wrapper">
       <h1 className="heading">Projects</h1>
+      <InfoPopup title="Not Avaliable" setInfoPopup={setInfoPopup1} showPopup={infoPopup1}>
+        This application includes proprietary software I do not have permission to host. If you would like me to request special permission from the owner, please let me know.
+      </InfoPopup>
       <div className="project">
-        <div className="image-wrapper">
+        <a onClick={() => setInfoPopup1(true)} className="image-wrapper">
           <Image src="/commuter-v2-site-capture.JPG" alt="Commuter v2 Screenshot" width={740} height={360} layout="responsive" />
-        </div>
+        </a>
         <div className="text-wrapper">
           <h2>Commuter v2</h2>
           <p>Full stack application created with PHP7 and Laravel designed to refresh Skycity’s outdated fleet management system.</p>
-          <a href="" target="_blank"><div className="link-button">LIVE APP</div></a>
+          <a onClick={() => setInfoPopup1(true)}><div className="link-button">LIVE APP</div></a>
           <a onClick={() => addGitHubColaborator('commute-v2')}><div className="link-button">VIEW CODE</div></a>
         </div>
       </div>
@@ -323,14 +349,14 @@ const Home: NextPage = () => {
           <a href="https://danielbly.dev/flicka" target="_blank"><div className="link-button">LIVE APP</div></a>
           <a onClick={() => addGitHubColaborator('flicka')}><div className="link-button">VIEW CODE</div></a>
         </div>
-        <div className="image-wrapper">
+        <a href="https://danielbly.dev/flicka" target="_blank" className="image-wrapper">
           <Image src="/flicka-site-capture.JPG" alt="Flicka Screenshot" width={740} height={360} layout="responsive" />
-        </div>
+        </a>
       </div>
       <div className="project">
-        <div className="image-wrapper">
+        <a href="https://beta.dataset.co.nz" target="_blank" className="image-wrapper">
           <Image src="/dataset-site-capture.JPG" alt="Dataset Screenshot" width={740} height={360} layout="responsive" />
-        </div>
+        </a>
         <div className="text-wrapper">
           <h2>Dataset (Beta)</h2>
           <p>A social media application designed to aid in the discovery of up-and-coming electronic music artists. Created using Next.js and Express.js with a Neo4j graph database and AWS S3 file storage.</p>
@@ -338,16 +364,19 @@ const Home: NextPage = () => {
           <a onClick={() => addGitHubColaborator('dataset')}><div className="link-button">VIEW CODE</div></a>
         </div>
       </div>
+      <InfoPopup title="Coming Soon!" setInfoPopup={setInfoPopup2} showPopup={infoPopup2}>
+        This application is currently in development and therefore no live demo is avaliable.
+      </InfoPopup>
       <div className="project inverted last">
         <div className="text-wrapper">
           <h2>Commuter v3 (WIP)</h2>
           <p>I am currently developing Commuter v3 in partnership with it’s owner as modular cooperate booking software. It is being created in Typescript with a Nest.js backend running a MongoDB database and will implement a Next.js frontend.</p>
-          <a href="" target="_blank"><div className="link-button">LIVE APP</div></a>
+          <a onClick={() => setInfoPopup2(true)}><div className="link-button">LIVE APP</div></a>
           <a onClick={() => addGitHubColaborator('commute-v3')}><div className="link-button">VIEW CODE</div></a>
         </div>
-        <div className="image-wrapper">
+        <a onClick={() => setInfoPopup2(true)} className="image-wrapper">
           <Image src="/wip.jpg" alt="Flicka Screenshot" width={740} height={360} layout="responsive" />
-        </div>
+        </a>
       </div>
     </div>
     
