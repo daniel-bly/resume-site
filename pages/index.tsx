@@ -354,7 +354,7 @@ const Home: NextPage = () => {
     <div className="projects-wrapper" ref={projectsRef}>
       <h1 className="heading">Projects</h1>
       <InfoPopup title="Not Avaliable" setInfoPopup={setInfoPopup1} showPopup={infoPopup1}>
-        This application includes proprietary software I do not have permission to host. If you would like me to request special permission from the owner, please let me know.
+        This application includes proprietary software I do not have permission to host. If you would like me to request special permission from the owner please let me know.
       </InfoPopup>
       <div className="project">
         <a onClick={() => setInfoPopup1(true)} className="image-wrapper">
