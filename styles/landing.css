@@ -61,7 +61,7 @@
     margin-left: 5px!important;
 }
 @media( max-width: 378px) { 
-    .landing-wrapper .typewriter-wrapper { margin-top: -50px; }
+    .landing-wrapper .typewriter-wrapper { margin-top: -100px; }
 }
 
 .nav {
