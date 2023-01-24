@@ -350,7 +350,7 @@
     height: fit-content;
     background-color: #0d0d0d;
     border: 1px solid rgba(255,255,255,0.3);
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.95);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -383,16 +383,19 @@
     opacity: 0.45;
 }
 .popup .btn {
+    cursor: pointer;
     line-height: 1.5;
     padding: 7.5px 5px;
     margin-top: 10px;
     display: inline-block;
     width: 85%!important;
     border: 1px solid hsl(0, 0%, 10%);
-    color: #afafaf;
+    color: rgba(255, 255, 255, 0.95);
     background: hsl(0, 0%, 14%);
-    transition: background-color 0.3s cubic-bezier(0.57, 0.21, 0.69, 1.25),
+    transition: background-color 0.1s cubic-bezier(0.57, 0.21, 0.69, 1.25),
       transform 0.3s cubic-bezier(0.57, 0.21, 0.69, 1.25);
+}.popup .btn:hover {
+    background: hsl(0, 0%, 21%);
 }
 
 .footer {
