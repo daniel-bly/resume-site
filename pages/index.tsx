@@ -345,7 +345,7 @@ const Home: NextPage = () => {
             <Skill logo="Git.svg" alt="Git logo" text="Git" />
             <Skill logo="Docker.svg" alt="Docker logo" text="Docker" />
             <Skill logo="ci-cd.svg" alt="CI/CD logo" text="CI/CD" invert />
-            <Skill logo="jest.svg" alt="Jest logo" text="Jest JS" />
+            <Skill logo="jest.svg" alt="Jest logo" text="JestJS" />
           </CustomAccordion>
         </div>
       </div>
