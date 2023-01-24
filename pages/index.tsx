@@ -199,7 +199,7 @@ const Home: NextPage = () => {
   const onSubmit = async (data: object) => {
     console.log(data)
     setLoadingPopup(true)
-    axios.post(process.env.NEXT_PUBLIC_BASE_PATH + '/api/submit-form', data)
+    axios.post('/api/submit-form', data)
       .then((res) => {
         setLoadingPopup(false)
         setSuccessPopup(true)
@@ -216,7 +216,7 @@ const Home: NextPage = () => {
     if(!password) return
     const username = prompt('Enter your GitHub username:')
     if(!username) return
-    const result = await axios.put(process.env.NEXT_PUBLIC_BASE_PATH + '/api/add-github-colaborator', { repo: repo, username: username, pass: password })
+    const result = await axios.put('/api/add-github-colaborator', { repo: repo, username: username, pass: password })
 
     if(result.status === 201) {
       window.alert("You have successfully been added to the repository. Please check your GitHub account.")
