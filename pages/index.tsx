@@ -216,15 +216,19 @@ const Home: NextPage = () => {
     if(!password) return
     const username = prompt('Enter your GitHub username:')
     if(!username) return
-    const result = await axios.put('/api/add-github-colaborator', { repo: repo, username: username, pass: password })
+    
+    console.log("Begining request")
 
-    if(result.status === 201) {
-      window.alert("You have successfully been added to the repository. Please check your GitHub account.")
-    } else if (result.status === 401) {
-      window.alert("The password you entered was incorrect. Please try again.")
-    } else {
-      window.alert(result.data.message)
-    }
+    axios.put('/api/add-github-colaborator', { repo: repo, username: username, pass: password })
+      .then((result) => {
+        window.alert("You have successfully been added to the repository. Please check your GitHub account.")
+      }).catch((error) => {
+        if (error.response.status === 401) {
+          window.alert("The password you entered was incorrect. Please try again.")
+        } else {
+          window.alert("Something went wrong. Please try again. If the issue persists please let me know via danielbly999@gmail.com.")
+        }
+      })
   }
 
   const [exapanded, setExpanded] = useState<string | false>('panel1')
