@@ -20,6 +20,12 @@ a {
   box-sizing: border-box;
 }
 
+.anchor {
+  padding-top:50px;
+  display:block;
+  margin-top:-50px; /* if you want to cancel out the padding-top */
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

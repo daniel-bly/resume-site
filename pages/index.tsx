@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect, useRef } from 'react'
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import Particles from 'react-tsparticles'
@@ -11,7 +11,9 @@ import * as Yup from 'yup'
 import axios from 'axios'
 import ClipLoader from "react-spinners/ClipLoader"
 
+import Header from '../components/Header'
 import CustomAccordion from '../components/CustomAccordion'
+import Skill from '../components/Skill'
 
 import styles from '../styles/Home.module.css'
 import { fail } from 'assert'
@@ -88,6 +90,7 @@ const options: IOptions = {
   },
   detectRetina: true,
 }
+
 const canvasStyle = `
 
   width: 100% !important; 
@@ -100,21 +103,9 @@ const canvasStyle = `
   background-color: rgb(37, 34, 34);
 `
 
-const Skill = ({logo, alt, text, scale = 1, invert = false}: { logo: string, alt: string, text: string, scale?: number, invert?: boolean}) => {
-  const baseScale = 70
-
-  return (
-    <div className={invert ? "skill inverted" : "skill"}>
-      <Image src={`/skills/${logo}`} alt={alt} height={baseScale * scale} width={baseScale * scale} />
-      <span>{text}</span>
-    </div>
-  )
-}
-
 const LoadingPopup = ({ showPopup }: { showPopup: boolean }) => {
-
   return (
-      <div  className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
+      <div className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
           <div className="popup loading">
               <ClipLoader loading={true} color="#9900ff" size={100} />
               <p>Sending...</p>
@@ -129,7 +120,7 @@ const SuccessPopup = ({ showPopup }: { showPopup: boolean }) => {
     }
 
     return (
-        <div  className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
+        <div className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
             <div className="popup success">
                 <Image src="/res/check.svg" alt="Check" width={90} height={90} />
                 <h2>Message Sent Successfully</h2>
@@ -242,9 +233,40 @@ const Home: NextPage = () => {
     setExpanded(newExpanded ? panel : false);
   }
 
+  const aboutRef = useRef(null)
+  const projectsRef = useRef(null)
+  const contactRef = useRef(null)
+
+  const [active, setActive] = useState('home')
+
+  const handleScroll = () => {
+    const headerHeight = 60
+    const { top, height } = document?.body.getBoundingClientRect() ?? 0
+    setActive('contacts')
+    if (-top < aboutRef.current.offsetTop - headerHeight)
+      setActive('home')
+    else if (-top < projectsRef.current.offsetTop - headerHeight)
+      setActive('about')
+    else if (-top < contactRef.current.offsetTop - headerHeight && -top < height - window.innerHeight - (contactRef.current.clientHeight / 2))
+      setActive('projects')
+    else
+      setActive('contact')
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+        window.removeEventListener("scroll", handleScroll);
+    }
+  })
+
+  useEffect(() => {
+    console.log(active)
+  }, [active])
 
   return (
     <div style={{backgroundColor: 'black'}}>
+    <div className="anchor" id="home" />
     <div className="landing-wrapper" style={{height: '100vh'}}>
       <Particles id="tsparticles" init={particlesInit} loaded={particlesLoaded} options={options} canvasClassName="particlesCanvas" />
       <div className={styles.typewriter_wrapper} style={{zIndex: 1000}}>
@@ -267,7 +289,9 @@ const Home: NextPage = () => {
     {/* <div className={styles.background_particles} >
       <Particles id="tsparticles2" init={particlesInit} loaded={particlesLoaded} options={options} canvasClassName="particlesCanvas" />
     </div> */}
-    <div className="about-wrapper" id="about">
+    <Header active={active} />
+    <div className="anchor" id="about" />
+    <div className="about-wrapper" ref={aboutRef}>
       <h1 className="heading">About</h1>
       <div className="flex-wrapper">
         <div className="text-wrapper">
@@ -326,7 +350,8 @@ const Home: NextPage = () => {
         </div>
       </div>
     </div>
-    <div className="projects-wrapper">
+    <div className="anchor" id="projects" />
+    <div className="projects-wrapper" ref={projectsRef}>
       <h1 className="heading">Projects</h1>
       <InfoPopup title="Not Avaliable" setInfoPopup={setInfoPopup1} showPopup={infoPopup1}>
         This application includes proprietary software I do not have permission to host. If you would like me to request special permission from the owner, please let me know.
@@ -379,11 +404,12 @@ const Home: NextPage = () => {
         </a>
       </div>
     </div>
-    
+
     <LoadingPopup showPopup={loadingPopup} />
     <SuccessPopup showPopup={successPopup} />
     <FailurePopup setFailPopup={setFailPopup} showPopup={failPopup} />
-    <div className="contact-wrapper">
+    <div className="anchor" id="contact" />
+    <div className="contact-wrapper" ref={contactRef}>
       <h1 className="heading">Contact</h1>
       <div className="flex-wrapper">
         <div className="text-wrapper">
@@ -410,7 +436,12 @@ const Home: NextPage = () => {
     </div>
     <div className="footer">
       <div className="socials">
-
+        <a href="https://www.linkedin.com/in/daniel-bly/" target="_blank">
+          <Image src={`/res/linkedin.svg`} alt="LinkedIn Logo" height={25} width={25} />
+        </a>
+        <a href="https://www.github.com/daniel-bly" target="_blank">
+          <Image src={`/res/github.svg`} alt="GitHub Logo" height={25} width={25} />
+        </a>
       </div>
       <div className="copyright">
         <span>© </span>
