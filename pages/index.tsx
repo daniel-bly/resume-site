@@ -9,10 +9,12 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import axios from 'axios'
+import ClipLoader from "react-spinners/ClipLoader"
 
 import CustomAccordion from '../components/CustomAccordion'
 
 import styles from '../styles/Home.module.css'
+import { fail } from 'assert'
 
 const options: IOptions = {
   background: {
@@ -109,6 +111,52 @@ const Skill = ({logo, alt, text, scale = 1, invert = false}: { logo: string, alt
   )
 }
 
+const LoadingPopup = ({ showPopup }: { showPopup: boolean }) => {
+
+  return (
+      <div  className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
+          <div className="popup loading">
+              <ClipLoader loading={true} color="#35adfc" size={100} />
+              <p>Sending...</p>
+          </div>
+      </div>
+  )
+}
+
+const SuccessPopup = ({ showPopup }: { showPopup: boolean }) => {
+    const close = () => {
+        window.location.reload()
+    }
+
+    return (
+        <div  className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
+            <div className="popup success">
+                <img src="/res/check.svg" />
+                <h2>Enquiry Sent Successfully</h2>
+                <p>Thank you for getting in touch. I will get back to you shortly!</p>
+                <input type="submit" value="Ok" className="btn btn-primary btn-block"  onClick={close} />
+            </div>
+        </div>
+    )
+}
+
+const FailurePopup = ({ showPopup, setFailPopup }: { showPopup: boolean, setFailPopup: (params: any) => any }) => {
+    const close = () => {
+        setFailPopup(false)
+    }
+
+    return (
+        <div className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
+            <div className="popup fail">
+                <img src="/res/cross.svg" />
+                <h2>Enquiry Sent Unsuccessfully</h2>
+                <p>Please try again later. If the issue persists, please let us know via contact@phoenixmedia.co.nz</p>
+                <input type="submit" value="Ok" className="btn btn-primary btn-block"  onClick={close} />
+            </div>
+        </div>
+    )
+}
+
 const Home: NextPage = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
     // Logic goes here :)
@@ -134,8 +182,23 @@ const Home: NextPage = () => {
   const { register, handleSubmit, reset, formState } = useForm(formOptions)
   const { errors } = formState
 
+  const [loadingPopup, setLoadingPopup] = useState(false);
+  const [successPopup, setSuccessPopup] = useState(false);
+  const [failPopup, setFailPopup] = useState(false);
+
   const onSubmit = async (data: object) => {
     console.log(data)
+    setLoadingPopup(true)
+    axios.post(process.env.NEXT_PUBLIC_BASE_PATH + '/api/submit-form', data)
+      .then((res) => {
+        setLoadingPopup(false)
+        setSuccessPopup(true)
+      }).catch((err) => {
+        console.log(err)
+        setLoadingPopup(false)
+        setFailPopup(true)
+      }
+    )
   }
 
   const addGitHubColaborator = async (repo: string) => {
@@ -287,23 +350,43 @@ const Home: NextPage = () => {
         </div>
       </div>
     </div>
+    
+    <LoadingPopup showPopup={loadingPopup} />
+    <SuccessPopup showPopup={successPopup} />
+    <FailurePopup setFailPopup={setFailPopup} showPopup={failPopup} />
     <div className="contact-wrapper">
       <h1 className="heading">Contact</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-group">
-              <input className="form-control w-100" placeholder='Name' name="name" {...register('name')} />
-              <div className="invalid-feedback">{errors.fname?.message?.toString()}</div>
-          </div>
-          <div className="form-group">
-              <input className="form-control w-100" placeholder="Email" name="email" {...register('email')} />
-              <div className="invalid-feedback">{errors.email?.message?.toString()}</div>
-          </div>
-          <div className="form-group">
-              <textarea className="form-control w-100" placeholder="Message" name="message"  {...register('message')} />
-              <div className="invalid-feedback">{errors.confirm_password?.message?.toString()}</div>
-          </div>
-          <input className="button" type="submit" />
-      </form>
+      <div className="flex-wrapper">
+        <div className="text-wrapper">
+          <p>Fill out the form bellow and I will get back to you as soon as possible! You can also <a href="/downloads/daniel-bly-developer-cv-2023.pdf" download={'daniel-bly-developer-cv-2023.pdf'}>download a copy of my CV.</a></p>
+        </div>
+        <div className="form-wrapper">
+          <form className="w-100" onSubmit={handleSubmit(onSubmit)}>
+              <div className="form-group w-100">
+                  <input className="form-control w-100" placeholder='Name' name="name" {...register('name')} />
+                  <div className="invalid-feedback">{errors.name?.message?.toString()}</div>
+              </div>
+              <div className="form-group">
+                  <input className="form-control w-100" placeholder="Email" name="email" {...register('email')} />
+                  <div className="invalid-feedback">{errors.email?.message?.toString()}</div>
+              </div>
+              <div className="form-group">
+                  <textarea className="form-control w-100" placeholder="Message" name="message"  {...register('message')} />
+                  <div className="invalid-feedback">{errors.message?.message?.toString()}</div>
+              </div>
+              <input className="button" type="SUBMIT" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <div className="footer">
+      <div className="socials">
+
+      </div>
+      <div className="copyright">
+        <span>© </span>
+        {`Daniel Bly ${new Date().getFullYear()}`}
+      </div>
     </div>
     </div>
   )

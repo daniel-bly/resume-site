@@ -23,6 +23,7 @@
     "react-dom": "18.2.0",
     "react-hexgrid": "^2.0.1",
     "react-hook-form": "^7.38.0",
+    "react-spinners": "^0.13.8",
     "react-tsparticles": "^2.3.3",
     "tsparticles": "^2.3.4",
     "tsparticles-engine": "^2.3.3",
