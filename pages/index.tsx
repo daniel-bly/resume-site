@@ -270,7 +270,7 @@ const Home: NextPage = () => {
     <div className="landing-wrapper" style={{height: '100vh'}}>
       <Particles id="tsparticles" init={particlesInit} loaded={particlesLoaded} options={options} canvasClassName="particlesCanvas" />
       <div className={styles.typewriter_wrapper} style={{zIndex: 1000}}>
-        <div style={{height: 138, width: '80%'}}>
+        <div className="typewriter-wrapper">
         <Typewriter
           onInit={(typewriter) => {
             typewriter.changeDelay(50)
