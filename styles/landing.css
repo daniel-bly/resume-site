@@ -138,6 +138,9 @@
     width: 100%;
     margin-bottom: 10%;
 }
+.projects-wrapper .project.last {
+    margin-bottom: 0!important;
+}
 .projects-wrapper .project .image-wrapper {
     align-self: flex-start;
     position: relative;

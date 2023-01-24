@@ -338,7 +338,7 @@ const Home: NextPage = () => {
           <a onClick={() => addGitHubColaborator('dataset')}><div className="link-button">VIEW CODE</div></a>
         </div>
       </div>
-      <div className="project inverted">
+      <div className="project inverted last">
         <div className="text-wrapper">
           <h2>Commuter v3 (WIP)</h2>
           <p>I am currently developing Commuter v3 in partnership with it’s owner as modular cooperate booking software. It is being created in Typescript with a Nest.js backend running a MongoDB database and will implement a Next.js frontend.</p>
