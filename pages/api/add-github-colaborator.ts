@@ -12,12 +12,13 @@ type Repo = {
   password: string
 }
 
+// List of repositories that this endpoint will grant access too
+// NOTE: Update password env paths tp match .env.local
 const validRepos: Repo[]  = []
-
 validRepos.push(
   {
-    name: 'flicka',
-    password: process.env.FLICKA_PASS || 'test1234'
+    name: 'flicka', // Repo name
+    password: process.env.FLICKA_PASS || 'test1234' // Password from .env.local. Will override if not set
   },
   {
     name: 'dataset',

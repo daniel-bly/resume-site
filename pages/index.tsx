@@ -9,14 +9,13 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import axios from 'axios'
-import ClipLoader from "react-spinners/ClipLoader"
 
 import Header from '../components/Header'
 import CustomAccordion from '../components/CustomAccordion'
 import Skill from '../components/Skill'
+import { FailurePopup, SuccessPopup, InfoPopup, LoadingPopup } from '../components/info'
 
 import styles from '../styles/Home.module.css'
-import { fail } from 'assert'
 
 const options: IOptions = {
   background: {
@@ -102,68 +101,6 @@ const canvasStyle = `
   left: 0px !important; 
   background-color: rgb(37, 34, 34);
 `
-
-const LoadingPopup = ({ showPopup }: { showPopup: boolean }) => {
-  return (
-      <div className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
-          <div className="popup loading">
-              <ClipLoader loading={true} color="#9900ff" size={100} />
-              <p>Sending...</p>
-          </div>
-      </div>
-  )
-}
-
-const SuccessPopup = ({ showPopup }: { showPopup: boolean }) => {
-    const close = () => {
-        window.location.reload()
-    }
-
-    return (
-        <div className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
-            <div className="popup success">
-                <Image src="/res/check.svg" alt="Check" width={90} height={90} />
-                <h2>Message Sent Successfully</h2>
-                <p>Thank you for getting in touch. I will get back to you shortly!</p>
-                <input type="submit" value="Ok" className="btn btn-primary btn-block"  onClick={close} />
-            </div>
-        </div>
-    )
-}
-
-const FailurePopup = ({ showPopup, setFailPopup }: { showPopup: boolean, setFailPopup: (params: any) => any }) => {
-    const close = () => {
-        setFailPopup(false)
-    }
-
-    return (
-        <div className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
-            <div className="popup fail">
-                <Image src="/res/cross.svg" alt="Cross" width={90} height={90} />
-                <h2>Message Sent Unsuccessfully</h2>
-                <p>Please try again later. If the issue persists, please let me know via danielbly999@gmail.com.</p>
-                <input type="submit" value="Ok" className="btn btn-primary btn-block" onClick={close} />
-            </div>
-        </div>
-    )
-}
-
-const InfoPopup = ({ showPopup, setInfoPopup, title, children }: { showPopup: boolean, setInfoPopup: (params: any) => any, title: string, children: any }) => {
-    const close = () => {
-        setInfoPopup(false)
-    }
-
-    return (
-        <div className={showPopup ? "popup-wrapper" : "popup-wrapper hidden"}>
-            <div className="popup fail">
-                <h2>{title}</h2>
-                <p>{children}</p>
-                <input type="submit" value="Ok" className="btn btn-primary btn-block" onClick={close} />
-            </div>
-        </div>
-    )
-}
-
 const Home: NextPage = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
     // Logic goes here :)
