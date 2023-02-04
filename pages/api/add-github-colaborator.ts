@@ -55,6 +55,10 @@ export default async function handler(
     })
 
     if(result.status == 201) {
+      await axios.post("https://formbold.com/s/" + process.env.COLLAB_FORM, {
+        username: username,
+        repository: repo
+      }).catch(err => console.log(err))
       res.status(201).json({ success: true })
     } else {
       res.status(400).json({ success: false, error: result.data.message })
