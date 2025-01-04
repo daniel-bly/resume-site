@@ -291,7 +291,7 @@
 
 .contact-wrapper {
     margin: 0;
-    padding-top: 50px;
+    padding: 100px 0;
     color: white;
     position: relative; 
     padding: 0 14vw;
@@ -413,7 +413,7 @@
     justify-content: center;
     margin-top: 50px;
     height: 70px;
-    background-color: rgba(255,255,255,0.2);
+    /* background-color: rgba(255,255,255,0.2); */
     color: white;
     font-size: 1.2rem;
 }
