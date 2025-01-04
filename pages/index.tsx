@@ -17,7 +17,7 @@ import { FailurePopup, SuccessPopup, InfoPopup, LoadingPopup } from '../componen
 
 import styles from '../styles/Home.module.css'
 
-const options: IOptions = {
+const options: any = {
   background: {
     color: {
       value: "#252222",
@@ -176,7 +176,7 @@ const Home: NextPage = () => {
 
   const aboutRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLElement>();
-  const contactRef = useRef<HTMLElement>();
+  const contactRef = useRef<HTMLDivElement>(null);
 
   const [active, setActive] = useState('home');
 
@@ -265,10 +265,10 @@ const Home: NextPage = () => {
     </div>
     <div className="footer">
       <div className="socials">
-        <a href="https://www.linkedin.com/in/daniel-bly/" target="_blank">
+        <a href="https://www.linkedin.com/in/daniel-bly/" target="_blank" rel="noreferrer">
           <Image src={`/res/linkedin.svg`} alt="LinkedIn Logo" height={25} width={25} />
         </a>
-        <a href="https://www.github.com/daniel-bly" target="_blank">
+        <a href="https://www.github.com/daniel-bly" target="_blank" rel="noreferrer">
           <Image src={`/res/github.svg`} alt="GitHub Logo" height={25} width={25} />
         </a>
       </div>
