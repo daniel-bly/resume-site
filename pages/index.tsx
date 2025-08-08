@@ -228,7 +228,7 @@ const Home: NextPage = () => {
           </div>
       </div>  
       <div className="button-wrapper">
-        <a href="https://www.linkedin.com/in/daniel-bly/" target='_blank'>
+        <a href="https://www.linkedin.com/in/daniel-bly/" target='_blank' rel="noreferrer">
           LinkedIn
         </a>
         <a href="#contact">
@@ -243,7 +243,7 @@ const Home: NextPage = () => {
     <FailurePopup setFailPopup={setFailPopup} showPopup={failPopup} />
     <div className="anchor" id="contact" />
     <div className="contact-wrapper" ref={contactRef}>
-      <h1 className="heading">Connect</h1>
+      <h1 className="heading">Contact</h1>
       <div className="flex-wrapper">
         <div className="text-wrapper">
           <p>Fill out the form bellow and I will get back to you as soon as possible! {/* You can also <a href="/downloads/daniel-bly-developer-cv-2023.pdf" download={'daniel-bly-developer-cv-2023.pdf'}>download a copy of my CV.</a> */}</p>
