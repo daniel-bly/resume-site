@@ -219,19 +219,23 @@ const Home: NextPage = () => {
         <Typewriter
           onInit={(typewriter) => {
             typewriter.changeDelay(50)
-              .typeString('<span>Hi,<br/> I am <span style="color: #ffd400;">Daniel</span></span>')
+              .typeString('<span>Hi, I\'m <span style="color: #ffd400;">Dan</span></span>')
               .pauseFor(500)
-              .typeString("<br/><span>A Full-Stack SaaS Developer</span>")
+              .typeString("<br/><span>Full-Stack Dev &<br/> Technical Lead</span>")
               .callFunction(() => setAnimComplete(true))
               .start()
           }} />
-          {isAnimComplete && <div style={{ fontSize: "1.6rem", fontWeight: 300, marginTop: 10, animation: "3s ease 0s normal forwards 1 fadein" }}>Coming Soon...</div>}
           </div>
       </div>  
-      <a href="#contact">
-        Learn More
-        <Image src="/res/down.svg" alt="Cross" width={15} height={15} />
-      </a>
+      <div className="button-wrapper">
+        <a href="https://www.linkedin.com/in/daniel-bly/" target='_blank'>
+          LinkedIn
+        </a>
+        <a href="#contact">
+          Get In Touch
+          <Image src="/res/down.svg" alt="Cross" width={15} height={15} />
+        </a>
+      </div>
     </div>
 
     <LoadingPopup showPopup={loadingPopup} />
@@ -239,7 +243,7 @@ const Home: NextPage = () => {
     <FailurePopup setFailPopup={setFailPopup} showPopup={failPopup} />
     <div className="anchor" id="contact" />
     <div className="contact-wrapper" ref={contactRef}>
-      <h1 className="heading">Contact</h1>
+      <h1 className="heading">Connect</h1>
       <div className="flex-wrapper">
         <div className="text-wrapper">
           <p>Fill out the form bellow and I will get back to you as soon as possible! {/* You can also <a href="/downloads/daniel-bly-developer-cv-2023.pdf" download={'daniel-bly-developer-cv-2023.pdf'}>download a copy of my CV.</a> */}</p>
