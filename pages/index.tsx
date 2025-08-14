@@ -20,7 +20,7 @@ import styles from '../styles/Home.module.css'
 const options: any = {
   background: {
     color: {
-      value: "#252222",
+      value: "#000000",
     },
   },
   fpsLimit: 120,

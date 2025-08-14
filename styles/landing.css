@@ -1,3 +1,7 @@
+#tsparticles .particlesCanvas {
+    background-color: #0d0d0d!important;
+}
+
 .landing-wrapper {
     position : relative;
 }
